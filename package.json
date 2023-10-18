@@ -1,7 +1,7 @@
 {
   "name": "@codeeshop/cordova-plugin-google-play-games",
   "private": false,
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Cordova plugin to work with Google Play Games services",
   "main": "./www/googleplaygames.js",
   "repository": {

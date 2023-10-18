@@ -31,14 +31,6 @@ You can login, make game saves, have leaderboard and achievements.
 ```bash
 cordova plugin add @codeeshop/cordova-plugin-google-play-games --variable GAME_SERVICES_PROJECT_ID=____HERE_ADD_YOUR_GAME_SERVICES_PROJECT_ID____
 ```
-
-You should add few lines in AndroidManifest.xml (app/src/main/res/AndroidManifest.xml) in application tag
-```
-<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
-```
-
-```
-
 -------- 
 ## Usage
 
@@ -77,7 +69,6 @@ This library is Promise style, you can use .then or await to fetch results
 ### Sign In
 
 ```javascript
-import * as GooglePlayGames from 'cordova-plugin-google-play-games';
 let { id } = await GooglePlayGames.login(); // userId returned
 ```
 ***
