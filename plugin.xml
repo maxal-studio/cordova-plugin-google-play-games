@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <plugin
         id="@codeeshop/cordova-plugin-google-play-games"
-        version="1.4.3"
+        version="1.4.4"
         xmlns="http://apache.org/cordova/ns/plugins/1.0"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -17,8 +17,7 @@
         <engine name="cordova-android" version=">=9.0.0" />
     </engines>
 
-    <platform name="android">
-        <preference name="GAME_SERVICES_PROJECT_ID" default="" />        
+    <platform name="android">        
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="GooglePlayGamesPlugin">
                 <param name="android-package" value="io.luzh.cordova.plugin.GooglePlayGamesPlugin" />
@@ -32,14 +31,7 @@
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
             <meta-data android:name="com.google.android.gms.version"
                        android:value="@integer/google_play_services_version" />
-             <meta-data android:name="com.google.android.gms.games.APP_ID" android:value="@string/app_id" />
-        </config-file>
-        
-        <resource-file src="src/android/values/games-ids.xml" target="res/values/games-ids.xml" />
-
-        <config-file target="res/values/games-ids.xml" parent="/*">
-          <string name="app_id" translatable="false">$GAME_SERVICES_PROJECT_ID</string>
-          <string name="package_name" translatable="false">$PACKAGE_NAME</string>
+            <meta-data android:name="com.google.android.gms.games.APP_ID" android:value="@string/app_id" />
         </config-file>
 
         <source-file src="src/android/GooglePlayGamesPlugin.java"
