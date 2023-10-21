@@ -18,6 +18,9 @@ import org.apache.cordova.CordovaWebView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.ConnectionResult;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -278,28 +281,36 @@ public class GooglePlayGamesPlugin extends CordovaPlugin {
     private void loginAction(JSONArray args, final CallbackContext callbackContext) {
         cordova.getActivity().runOnUiThread(new Runnable() {
             public void run() {
-                GamesSignInClient gamesSignInClient = PlayGames.getGamesSignInClient(cordova.getActivity());
+                int checkGooglePlayServices = GooglePlayServicesUtil.isGooglePlayServicesAvailable(cordova.getActivity());
 
-                gamesSignInClient.isAuthenticated().addOnCompleteListener(isAuthenticatedTask -> {
-                    boolean isAuthenticated =
-                            (isAuthenticatedTask.isSuccessful() &&
-                                    isAuthenticatedTask.getResult().isAuthenticated());
+                Log.d(TAG, "----> checkGooglePlayServices = " + (ConnectionResult.SUCCESS == checkGooglePlayServices));
 
-                    if (isAuthenticated) {
-                        PlayGames.getPlayersClient(cordova.getActivity()).getCurrentPlayer().addOnCompleteListener(mTask -> {
-                                try {
-                                    JSONObject result = new JSONObject();
-                                    result.put("id", mTask.getResult().getPlayerId());
-                                    callbackContext.success(result);
-                                } catch (JSONException err) {
-                                    callbackContext.error(err.getMessage());
+                if (checkGooglePlayServices == ConnectionResult.SUCCESS) {
+                    GamesSignInClient gamesSignInClient = PlayGames.getGamesSignInClient(cordova.getActivity());
+
+                    gamesSignInClient.isAuthenticated().addOnCompleteListener(isAuthenticatedTask -> {
+                        boolean isAuthenticated =
+                                (isAuthenticatedTask.isSuccessful() &&
+                                        isAuthenticatedTask.getResult().isAuthenticated());
+
+                        if (isAuthenticated) {
+                            PlayGames.getPlayersClient(cordova.getActivity()).getCurrentPlayer().addOnCompleteListener(mTask -> {
+                                    try {
+                                        JSONObject result = new JSONObject();
+                                        result.put("id", mTask.getResult().getPlayerId());
+                                        callbackContext.success(result);
+                                    } catch (JSONException err) {
+                                        callbackContext.error(err.getMessage());
+                                    }
                                 }
-                            }
-                        );
-                    } else {
-                        callbackContext.error("Login failed");
-                    }
-                });
+                            );
+                        } else {
+                            callbackContext.error("Login failed");
+                        }
+                    });
+                } else {
+                    callbackContext.error("----> checkGooglePlayServices = " + (ConnectionResult.SUCCESS == checkGooglePlayServices));
+                }
             }
         });
     }
