@@ -56,6 +56,7 @@ Login Failed Issues
 #### Resolutions
 Make sure your sha1 key is valid
 Setup > App signing ( Check for App signing key certificate > SHA-1 certificate fingerprint )
+
 ![Screenshot from 2023-10-23 14-57-43](https://github.com/codeeshop-oc/cordova-plugin-google-play-games/assets/54684361/e7bf9c66-74de-4cec-942d-66fa514981bd)
 
 ## Reference
