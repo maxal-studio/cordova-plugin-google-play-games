@@ -4,6 +4,7 @@
 ## Table of Contents
 
 - [Install](#install)
+- [Common Issues](#common-issues)
 - [Reference](#reference)
 
 -------- 
