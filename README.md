@@ -51,7 +51,7 @@ cordova plugin add @codeeshop/cordova-plugin-google-play-games
 
 ## Common Issues
 
-Login Faild Issues
+Login Failed Issues
 
 #### Resolutions
 Make sure your sha1 key is valid
