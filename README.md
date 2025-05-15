@@ -1,5 +1,4 @@
-@codeeshop/cordova-plugin-google-play-games [![Latest Stable Version](https://img.shields.io/npm/v/@codeeshop/cordova-plugin-google-play-games.svg)](https://www.npmjs.com/package/@codeeshop/cordova-plugin-google-play-games) [![Total Downloads](https://img.shields.io/npm/dt/@codeeshop/cordova-plugin-google-play-games.svg)](https://npm-stat.com/charts.html?package=@codeeshop/cordova-plugin-google-play-games)
-========================
+# @codeeshop/cordova-plugin-google-play-games [![Latest Stable Version](https://img.shields.io/npm/v/@codeeshop/cordova-plugin-google-play-games.svg)](https://www.npmjs.com/package/@codeeshop/cordova-plugin-google-play-games) [![Total Downloads](https://img.shields.io/npm/dt/@codeeshop/cordova-plugin-google-play-games.svg)](https://npm-stat.com/charts.html?package=@codeeshop/cordova-plugin-google-play-games)
 
 ## Table of Contents
 
@@ -7,7 +6,7 @@
 - [Common Issues](#common-issues)
 - [Reference](#reference)
 
--------- 
+---
 
 ## Install
 
@@ -38,11 +37,13 @@ res/android/values/games-ids.xml
   <string name="leaderboard_highest_world_solved" translatable="false">CgkXXXXXXXXXX</string>
 </resources>
 ```
-Step 3. Update config.xml 
+
+Step 3. Update config.xml
 
 ```bash
 <resource-file src="res/android/values/games-ids.xml" target="/app/src/main/res/values/games-ids.xml" />
 ```
+
 Step 4. Add Plugin
 
 ```bash
@@ -54,11 +55,40 @@ cordova plugin add @codeeshop/cordova-plugin-google-play-games
 Login Failed Issues
 
 #### Resolutions
+
 Make sure your sha1 key is valid
 Setup > App signing ( Check for App signing key certificate > SHA-1 certificate fingerprint )
 
 ![Screenshot from 2023-10-23 14-57-43](https://github.com/codeeshop-oc/cordova-plugin-google-play-games/assets/54684361/e7bf9c66-74de-4cec-942d-66fa514981bd)
 
-## Reference
+### Authentication
+
+Returns the current authentication status via an AuthenticationResult.
+
+If a sign-in flow is currently in progress (such as the automatic sign-in attempt during game start), delivery of this call's result will be postponed until the current sign-in attempt has completed.
+
+This API is useful for understanding if your game has access to Play Games Services. This method should be called when your game starts in order to conditionally enable or disable your Play Games Services integration.
+
+```javascript
+import * as GooglePlayGames from "cordova-plugin-google-play-games";
+let { id } = await GooglePlayGames.isAuthenticated(); // userId returned
+```
+
+---
+
+Returns the current authentication status via an AuthenticationResult.
+
+If a sign-in flow is currently in progress (such as the automatic sign-in attempt during game start), delivery of this call's result will be postponed until the current sign-in attempt has completed.
+
+This API is useful for understanding if your game has access to Play Games Services. This method should be called when your game starts in order to conditionally enable or disable your Play Games Services integration.
+
+```javascript
+import * as GooglePlayGames from "cordova-plugin-google-play-games";
+let { id } = await GooglePlayGames.login(); // userId returned
+```
+
+---
+
+## Full Documentation
 
 [maximnara/cordova-plugin-google-play-games](https://github.com/maximnara/cordova-plugin-google-play-games)

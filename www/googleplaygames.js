@@ -1,34 +1,48 @@
 /* eslint-disable */
 
 exports.errorCodes = {
-    ERROR_CODE_HAS_RESOLUTION: 1,
-    ERROR_CODE_NO_RESOLUTION: 2,
+	ERROR_CODE_HAS_RESOLUTION: 1,
+	ERROR_CODE_NO_RESOLUTION: 2,
+};
+
+/**
+ * Check if user is authenticated
+ * @returns {Promise} Returns a promise that resolves with:
+ * - If logged in: { code: "SUCCESS", message: "Logged in", user_id: "..." }
+ * - If not logged in: { code: "NOT_LOGGED_IN", message: "User is not logged in" }
+ * - Other errors: { code: "ERROR", message: "..." }
+ */
+exports.isAuthenticated = function isAuthenticated() {
+	return new Promise((resolve, reject) => {
+		callPlugin("isAuthenticated", [], resolve, reject);
+	});
 };
 
 /**
  * Login
+ * @returns {Promise} Returns a promise that resolves with:
+ * - If successful: { code: "SUCCESS", message: "Logged in", user_id: "..." }
+ * - If canceled: { code: "SIGN_IN_CANCELED", message: "User canceled the sign-in flow" }
+ * - Other errors: { code: "ERROR", message: "..." }
  */
-exports.login = function login()
-{
-    return new Promise((resolve, reject) => {
-        callPlugin('login', [], resolve, reject);
-    });
+exports.login = function login() {
+	return new Promise((resolve, reject) => {
+		callPlugin("login", [], resolve, reject);
+	});
 };
 
 /**
  * Unlock achievement
  * @param {String} params.id - id of achievement
  */
-exports.unlockAchievement = function unlockAchievement(params)
-{
-    params = defaults(params, {});
-    if (params.hasOwnProperty('id') === false)
-    {
-        throw new Error('You should specify id of achievement');
-    }
-    return new Promise((resolve, reject) => {
-        callPlugin('unlockAchievement', [params.id], resolve, reject);
-    });
+exports.unlockAchievement = function unlockAchievement(params) {
+	params = defaults(params, {});
+	if (params.hasOwnProperty("id") === false) {
+		throw new Error("You should specify id of achievement");
+	}
+	return new Promise((resolve, reject) => {
+		callPlugin("unlockAchievement", [params.id], resolve, reject);
+	});
 };
 
 /**
@@ -36,42 +50,47 @@ exports.unlockAchievement = function unlockAchievement(params)
  * @param {String} params.id - id of achievement
  * @param {Number} params.count - count of how much increment achievement
  */
-exports.incrementAchievement = function incrementAchievement(params)
-{
-    params = defaults(params, {});
-    if (params.hasOwnProperty('id') === false || params.hasOwnProperty('count') === false)
-    {
-        throw new Error('You should specify id of achievement and count how much to increase');
-    }
-    return new Promise((resolve, reject) => {
-        callPlugin('incrementAchievement', [params.id, params.count], resolve, reject);
-    });
+exports.incrementAchievement = function incrementAchievement(params) {
+	params = defaults(params, {});
+	if (
+		params.hasOwnProperty("id") === false ||
+		params.hasOwnProperty("count") === false
+	) {
+		throw new Error(
+			"You should specify id of achievement and count how much to increase"
+		);
+	}
+	return new Promise((resolve, reject) => {
+		callPlugin(
+			"incrementAchievement",
+			[params.id, params.count],
+			resolve,
+			reject
+		);
+	});
 };
 
 /**
  * Show achievements
  */
-exports.showAchievements = function showAchievements()
-{
-    return new Promise((resolve, reject) => {
-        callPlugin('showAchievements', [], resolve, reject);
-    });
+exports.showAchievements = function showAchievements() {
+	return new Promise((resolve, reject) => {
+		callPlugin("showAchievements", [], resolve, reject);
+	});
 };
 
 /**
  * Reveal achievement
  * @param {String} params.id - id of achievement
  */
-exports.revealAchievement = function revealAchievement(params)
-{
-    params = defaults(params, {});
-    if (params.hasOwnProperty('id') === false)
-    {
-        throw new Error('You should specify id of achievement');
-    }
-    return new Promise((resolve, reject) => {
-        callPlugin('revealAchievement', [params.id], resolve, reject);
-    });
+exports.revealAchievement = function revealAchievement(params) {
+	params = defaults(params, {});
+	if (params.hasOwnProperty("id") === false) {
+		throw new Error("You should specify id of achievement");
+	}
+	return new Promise((resolve, reject) => {
+		callPlugin("revealAchievement", [params.id], resolve, reject);
+	});
 };
 
 /**
@@ -79,16 +98,22 @@ exports.revealAchievement = function revealAchievement(params)
  * @param {String} params.id - id of achievement
  * @param {Number} params.count - count of steps, should be greater than 0
  */
-exports.setStepsInAchievement = function setStepsInAchievement(params)
-{
-    params = defaults(params, {});
-    if (params.hasOwnProperty('id') === false || params.hasOwnProperty('count') === false)
-    {
-        throw new Error('You should specify id of achievement and count of steps');
-    }
-    return new Promise((resolve, reject) => {
-        callPlugin('setStepsInAchievement', [params.id, params.count], resolve, reject);
-    });
+exports.setStepsInAchievement = function setStepsInAchievement(params) {
+	params = defaults(params, {});
+	if (
+		params.hasOwnProperty("id") === false ||
+		params.hasOwnProperty("count") === false
+	) {
+		throw new Error("You should specify id of achievement and count of steps");
+	}
+	return new Promise((resolve, reject) => {
+		callPlugin(
+			"setStepsInAchievement",
+			[params.id, params.count],
+			resolve,
+			reject
+		);
+	});
 };
 
 /**
@@ -96,58 +121,56 @@ exports.setStepsInAchievement = function setStepsInAchievement(params)
  * @param {String} params.id - id of leaderboard
  * @param {Number} params.score - player score to set
  */
-exports.updatePlayerScore = function updatePlayerScore(params)
-{
-    params = defaults(params, {});
-    if (params.hasOwnProperty('id') === false || params.hasOwnProperty('score') === false)
-    {
-        throw new Error('You should specify id of leaderboard and player score you want to set');
-    }
-    return new Promise((resolve, reject) => {
-        callPlugin('updatePlayerScore', [params.id, params.score], resolve, reject);
-    });
+exports.updatePlayerScore = function updatePlayerScore(params) {
+	params = defaults(params, {});
+	if (
+		params.hasOwnProperty("id") === false ||
+		params.hasOwnProperty("score") === false
+	) {
+		throw new Error(
+			"You should specify id of leaderboard and player score you want to set"
+		);
+	}
+	return new Promise((resolve, reject) => {
+		callPlugin("updatePlayerScore", [params.id, params.score], resolve, reject);
+	});
 };
 
 /**
  * Load player score
  * @param {String} params.id - id of leaderboard
  */
-exports.loadPlayerScore = function loadPlayerScore(params)
-{
-    params = defaults(params, {});
-    if (params.hasOwnProperty('id') === false)
-    {
-        throw new Error('You should specify leaderboard id');
-    }
-    return new Promise((resolve, reject) => {
-        callPlugin('loadPlayerScore', [params.id], resolve, reject);
-    });
+exports.loadPlayerScore = function loadPlayerScore(params) {
+	params = defaults(params, {});
+	if (params.hasOwnProperty("id") === false) {
+		throw new Error("You should specify leaderboard id");
+	}
+	return new Promise((resolve, reject) => {
+		callPlugin("loadPlayerScore", [params.id], resolve, reject);
+	});
 };
 
 /**
  * Show leaderboard
  * @param {String} params.id - id of leaderboard
  */
-exports.showLeaderboard = function showLeaderboard(params)
-{
-    params = defaults(params, {});
-    if (params.hasOwnProperty('id') === false)
-    {
-        throw new Error('You should specify leaderboard id');
-    }
-    return new Promise((resolve, reject) => {
-        callPlugin('showLeaderboard', [params.id], resolve, reject);
-    });
+exports.showLeaderboard = function showLeaderboard(params) {
+	params = defaults(params, {});
+	if (params.hasOwnProperty("id") === false) {
+		throw new Error("You should specify leaderboard id");
+	}
+	return new Promise((resolve, reject) => {
+		callPlugin("showLeaderboard", [params.id], resolve, reject);
+	});
 };
 
 /**
  * Show all leaderboards
  */
-exports.showAllLeaderboards = function showAllLeaderboards()
-{
-    return new Promise((resolve, reject) => {
-        callPlugin('showAllLeaderboards', [], resolve, reject);
-    });
+exports.showAllLeaderboards = function showAllLeaderboards() {
+	return new Promise((resolve, reject) => {
+		callPlugin("showAllLeaderboards", [], resolve, reject);
+	});
 };
 
 /**
@@ -157,20 +180,31 @@ exports.showAllLeaderboards = function showAllLeaderboards()
  * @param {Boolean} params.allowDelete - Whether or not to provide a delete overflow menu option for each snapshot
  * @param {Number} params.maxSnapshots - The maximum number of snapshots to display
  */
-exports.showSavedGames = function showSavedGames(params)
-{
-    params = defaults(params, {});
-    if (
-      params.hasOwnProperty('title') === false ||
-      params.hasOwnProperty('allowAddButton') === false ||
-      params.hasOwnProperty('allowDelete') === false ||
-      params.hasOwnProperty('maxSnapshots') === false
-    ) {
-        throw new Error('You should specify title, allowAddButton, allowDelete and maxSnapshots parameters');
-    }
-    return new Promise((resolve, reject) => {
-        callPlugin('showSavedGames', [params.title, params.allowAddButton, params.allowDelete, params.maxSnapshots], resolve, reject);
-    });
+exports.showSavedGames = function showSavedGames(params) {
+	params = defaults(params, {});
+	if (
+		params.hasOwnProperty("title") === false ||
+		params.hasOwnProperty("allowAddButton") === false ||
+		params.hasOwnProperty("allowDelete") === false ||
+		params.hasOwnProperty("maxSnapshots") === false
+	) {
+		throw new Error(
+			"You should specify title, allowAddButton, allowDelete and maxSnapshots parameters"
+		);
+	}
+	return new Promise((resolve, reject) => {
+		callPlugin(
+			"showSavedGames",
+			[
+				params.title,
+				params.allowAddButton,
+				params.allowDelete,
+				params.maxSnapshots,
+			],
+			resolve,
+			reject
+		);
+	});
 };
 
 /**
@@ -179,34 +213,43 @@ exports.showSavedGames = function showSavedGames(params)
  * @param {String} params.snapshotDescription - The snapshot description, will be shown in saves list UI
  * @param {Object} params.snapshotContents - Object you want to save
  */
-exports.saveGame = function saveGame(params)
-{
-    params = defaults(params, {});
-    if (
-      params.hasOwnProperty('snapshotName') === false ||
-      params.hasOwnProperty('snapshotDescription') === false ||
-      params.hasOwnProperty('snapshotContents') === false
-    ) {
-        throw new Error('You should specify snapshotName, snapshotDescription and snapshotContents parameters');
-    }
-    return new Promise((resolve, reject) => {
-        callPlugin('saveGame', [params.snapshotName, params.snapshotDescription, params.snapshotContents], resolve, reject);
-    });
+exports.saveGame = function saveGame(params) {
+	params = defaults(params, {});
+	if (
+		params.hasOwnProperty("snapshotName") === false ||
+		params.hasOwnProperty("snapshotDescription") === false ||
+		params.hasOwnProperty("snapshotContents") === false
+	) {
+		throw new Error(
+			"You should specify snapshotName, snapshotDescription and snapshotContents parameters"
+		);
+	}
+	return new Promise((resolve, reject) => {
+		callPlugin(
+			"saveGame",
+			[
+				params.snapshotName,
+				params.snapshotDescription,
+				params.snapshotContents,
+			],
+			resolve,
+			reject
+		);
+	});
 };
 
 /**
  * Save game
  * @param {String} params.snapshotName - The inner used name for snapshot, should be unique for each game save
  */
-exports.loadGameSave = function loadGameSave(params)
-{
-    params = defaults(params, {});
-    if (params.hasOwnProperty('snapshotName') === false) {
-        throw new Error('You should specify snapshotName parameter');
-    }
-    return new Promise((resolve, reject) => {
-        callPlugin('loadGameSave', [params.snapshotName], resolve, reject);
-    });
+exports.loadGameSave = function loadGameSave(params) {
+	params = defaults(params, {});
+	if (params.hasOwnProperty("snapshotName") === false) {
+		throw new Error("You should specify snapshotName parameter");
+	}
+	return new Promise((resolve, reject) => {
+		callPlugin("loadGameSave", [params.snapshotName], resolve, reject);
+	});
 };
 
 /**
@@ -220,36 +263,33 @@ exports.loadGameSave = function loadGameSave(params)
  * will happen after this error.
  * When "friendsListRequestSuccessful" event is fired, you should call this function again by yourself.
  */
-exports.getFriendsList = function getFriendsList()
-{
-    return new Promise((resolve, reject) => {
-        callPlugin('getFriendsList', [], resolve, reject);
-    });
+exports.getFriendsList = function getFriendsList() {
+	return new Promise((resolve, reject) => {
+		callPlugin("getFriendsList", [], resolve, reject);
+	});
 };
 
 /**
  * Show another player profile
  * @param {String} params.id - Another player profile id
  */
-exports.showAnotherPlayersProfile = function showAnotherPlayersProfile(params)
-{
-    params = defaults(params, {});
-    if (params.hasOwnProperty('id') === false) {
-        throw new Error('You should specify another player id parameter');
-    }
-    return new Promise((resolve, reject) => {
-        callPlugin('showAnotherPlayersProfile', [params.id], resolve, reject);
-    });
+exports.showAnotherPlayersProfile = function showAnotherPlayersProfile(params) {
+	params = defaults(params, {});
+	if (params.hasOwnProperty("id") === false) {
+		throw new Error("You should specify another player id parameter");
+	}
+	return new Promise((resolve, reject) => {
+		callPlugin("showAnotherPlayersProfile", [params.id], resolve, reject);
+	});
 };
 
 /**
  * Show player search
  */
-exports.showPlayerSearch = function showPlayerSearch()
-{
-    return new Promise((resolve, reject) => {
-        callPlugin('showPlayerSearch', [], resolve, reject);
-    });
+exports.showPlayerSearch = function showPlayerSearch() {
+	return new Promise((resolve, reject) => {
+		callPlugin("showPlayerSearch", [], resolve, reject);
+	});
 };
 
 /**
@@ -257,15 +297,14 @@ exports.showPlayerSearch = function showPlayerSearch()
  * @param {String} params.id - Player id
  * @param {Boolean=false} params.forceReload - Do google games need to force reload player data from server. This may cause lack of work speed.
  */
-exports.getPlayer = function getPlayer(params)
-{
-    params = defaults(params, { forceReload: false });
-    if (params.hasOwnProperty('id') === false) {
-        throw new Error('You should specify player id');
-    }
-    return new Promise((resolve, reject) => {
-        callPlugin('getPlayer', [params.id, params.forceReload], resolve, reject);
-    });
+exports.getPlayer = function getPlayer(params) {
+	params = defaults(params, { forceReload: false });
+	if (params.hasOwnProperty("id") === false) {
+		throw new Error("You should specify player id");
+	}
+	return new Promise((resolve, reject) => {
+		callPlugin("getPlayer", [params.id, params.forceReload], resolve, reject);
+	});
 };
 
 /**
@@ -277,11 +316,10 @@ exports.getPlayer = function getPlayer(params)
  * — Session percentile: The approximation of sessions percentile for the player, given as a decimal value between 0 to 1 inclusive. This value indicates how many sessions the current player has played in comparison to the rest of this game's player base. Higher numbers indicate that this player has played more sessions.
  * — Spend percentile: The approximate spend percentile of the player, given as a decimal value between 0 to 1 inclusive. This value indicates how much the current player has spent in comparison to the rest of this game's player base. Higher numbers indicate that this player has spent more.
  */
-exports.getCurrentPlayerStats = function getCurrentPlayerStats()
-{
-    return new Promise((resolve, reject) => {
-        callPlugin('getCurrentPlayerStats', [], resolve, reject);
-    });
+exports.getCurrentPlayerStats = function getCurrentPlayerStats() {
+	return new Promise((resolve, reject) => {
+		callPlugin("getCurrentPlayerStats", [], resolve, reject);
+	});
 };
 
 /**
@@ -289,40 +327,40 @@ exports.getCurrentPlayerStats = function getCurrentPlayerStats()
  * @param {String} params.id - Event id from play console
  * @param {Integer} params.amount - Amount of how much to increment
  */
-exports.incrementEvent = function incrementEvent(params)
-{
-    params = defaults(params, {});
-    if (params.hasOwnProperty('id') === false || params.hasOwnProperty('amount') === false) {
-        throw new Error('You should specify event id and amount parameters');
-    }
-    return new Promise((resolve, reject) => {
-        callPlugin('incrementEvent', [params.id, params.amount], resolve, reject);
-    });
+exports.incrementEvent = function incrementEvent(params) {
+	params = defaults(params, {});
+	if (
+		params.hasOwnProperty("id") === false ||
+		params.hasOwnProperty("amount") === false
+	) {
+		throw new Error("You should specify event id and amount parameters");
+	}
+	return new Promise((resolve, reject) => {
+		callPlugin("incrementEvent", [params.id, params.amount], resolve, reject);
+	});
 };
 
 /**
  * Get all events
  */
-exports.getAllEvents = function getAllEvents()
-{
-    return new Promise((resolve, reject) => {
-        callPlugin('getAllEvents', [], resolve, reject);
-    });
+exports.getAllEvents = function getAllEvents() {
+	return new Promise((resolve, reject) => {
+		callPlugin("getAllEvents", [], resolve, reject);
+	});
 };
 
 /**
  * Get event by id
  * @param {String} params.id - Event id from play console
  */
-exports.getEvent = function getEvent(params)
-{
-    params = defaults(params, {});
-    if (params.hasOwnProperty('id') === false) {
-        throw new Error('You should specify event id parameters');
-    }
-    return new Promise((resolve, reject) => {
-        callPlugin('getEvent', [params.id], resolve, reject);
-    });
+exports.getEvent = function getEvent(params) {
+	params = defaults(params, {});
+	if (params.hasOwnProperty("id") === false) {
+		throw new Error("You should specify event id parameters");
+	}
+	return new Promise((resolve, reject) => {
+		callPlugin("getEvent", [params.id], resolve, reject);
+	});
 };
 
 /**
@@ -332,33 +370,34 @@ exports.getEvent = function getEvent(params)
  * @param {Function} onSuccess - optional on sucess function
  * @param {Function} onFailure - optional on failure functioin
  */
-function callPlugin(name, params, onSuccess, onFailure)
-{
-    cordova.exec(function callPluginSuccess(result)
-    {
-
-        if (isFunction(onSuccess))
-        {
-            onSuccess(result);
-        }
-    }, function callPluginFailure(error)
-    {
-        if (isFunction(onFailure))
-        {
-            onFailure(error)
-        }
-    }, 'GooglePlayGamesPlugin', name, params);
+function callPlugin(name, params, onSuccess, onFailure) {
+	cordova.exec(
+		function callPluginSuccess(result) {
+			if (isFunction(onSuccess)) {
+				onSuccess(result);
+			}
+		},
+		function callPluginFailure(error) {
+			if (isFunction(onFailure)) {
+				onFailure(error);
+			}
+		},
+		"GooglePlayGamesPlugin",
+		name,
+		params
+	);
 }
 
 /**
  * Helper function to check if a function is a function
  * @param {Object} functionToCheck - function to check if is function
  */
-function isFunction(functionToCheck)
-{
-    var getType = {};
-    var isFunction = functionToCheck && getType.toString.call(functionToCheck) === '[object Function]';
-    return isFunction === true;
+function isFunction(functionToCheck) {
+	var getType = {};
+	var isFunction =
+		functionToCheck &&
+		getType.toString.call(functionToCheck) === "[object Function]";
+	return isFunction === true;
 }
 
 /**
@@ -366,20 +405,16 @@ function isFunction(functionToCheck)
  * @param {Object} o - object to extend
  * @param {Object} defaultObject - defaults to extend o with
  */
-function defaults(o, defaultObject)
-{
-    if (typeof o === 'undefined')
-    {
-        return defaults({}, defaultObject);
-    }
+function defaults(o, defaultObject) {
+	if (typeof o === "undefined") {
+		return defaults({}, defaultObject);
+	}
 
-    for (var j in defaultObject)
-    {
-        if (defaultObject.hasOwnProperty(j) && o.hasOwnProperty(j) === false)
-        {
-            o[j] = defaultObject[j];
-        }
-    }
+	for (var j in defaultObject) {
+		if (defaultObject.hasOwnProperty(j) && o.hasOwnProperty(j) === false) {
+			o[j] = defaultObject[j];
+		}
+	}
 
-    return o;
+	return o;
 }
